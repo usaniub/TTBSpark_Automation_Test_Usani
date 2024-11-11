@@ -1,0 +1,39 @@
+pipeline {
+ agent any
+
+ stages {
+    stage('Checkout Code From Git') {
+        step{
+            git branch: 'main', url: 'https://github.com/usaniub/APITest-Automated-Script_TTB.git'
+        }
+    }
+ }
+
+ stages {
+    stage('Run Test Automate') {
+        bat 'robot -d Results/3-TTB_APITest -o output.xml -i ALLTC 3-TTB-APITest.robot'
+    }
+ }
+
+ stages {
+    stage('Send Result To Jenkins') {
+        step([
+                $class : 'RobotPublisher',
+                outputPath : Results,
+                outputFileName : "output.xml",
+                disableArchiveOutput : false,
+                passThreshold : 100,
+                unstableThreshold: 90.0,
+                otherFiles : "*.png",
+            ])
+    }
+    stage('Send Result to Email') {
+        emailext attachLog: true, 
+        body: 'Test Result from automated script ', 
+        subject: 'Jenkins - Automated test result', 
+        to: 'usani.ub@gmail.com'
+    }
+ }
+
+
+}
