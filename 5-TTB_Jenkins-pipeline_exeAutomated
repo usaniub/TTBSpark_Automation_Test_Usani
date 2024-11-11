@@ -4,7 +4,7 @@ pipeline {
  stages {
     stage('Checkout Code From Git') {
         step{
-            git branch: 'main', url: 'https://github.com/usaniub/APITest-Automated-Script_TTB.git'
+            git branch: 'main', url: 'https://github.com/usaniub/TTBSpark_Automation_Test_Usani.git'
         }
     }
  }
