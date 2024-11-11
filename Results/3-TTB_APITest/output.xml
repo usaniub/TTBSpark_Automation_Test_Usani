@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.7 on win32)" generated="20241111 18:36:05.446" rpa="false" schemaversion="3">
+<suite id="s1" name="3-TTB APITest" source="C:\Users\usani\Documents\ForFindingNewJob\TTB\3-TTB_APITest.robot">
+<test id="s1-t1" name="TC1:Get user profile success" line="79">
+<kw name="Send Get Request To API and Verify Response">
+<arg>12</arg>
+<arg>200</arg>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${G_url}${userName}</arg>
+<arg>verify=${False}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20241111 18:36:07.852" level="INFO">GET Request : url=https://reqres.in/api/users/12 
+ path_url=/api/users/12 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241111 18:36:07.852" level="INFO">GET Response : url=https://reqres.in/api/users/12 
+ status=200, reason=OK 
+ headers={'Date': 'Mon, 11 Nov 2024 11:36:07 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1731272518&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=7py8SQ6ACXBQsQC%2FkIRDRWdMorVkmAQ9MxW3YW4ZRzs%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1731272518&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=7py8SQ6ACXBQsQC%2FkIRDRWdMorVkmAQ9MxW3YW4ZRzs%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"156-dRpOqAStViWxQQvYl7n1A1GXGFw"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'REVALIDATED', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '8e0dfb956cf1d01a-BKK', 'Content-Encoding': 'gzip', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=10684&amp;sent=5&amp;recv=7&amp;lost=0&amp;retrans=0&amp;sent_bytes=2981&amp;recv_bytes=445&amp;delivery_rate=550104&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=236137245370f560&amp;ts=548&amp;x=0"'} 
+ body={"data":{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://reqres.in/img/faces/12-image.jpg"},"support":{"url":"https://contentcaddy.io?utm_source=reqres&amp;utm_medium=json&amp;utm_campaign=referral","text":"Tired of writing endless social media content? Let Content Caddy generate it for you."}} 
+ </msg>
+<msg timestamp="20241111 18:36:07.852" level="INFO">C:\Users\usani\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20241111 18:36:07.854" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20241111 18:36:06.988" endtime="20241111 18:36:07.854"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:07.857" level="INFO">${response_code} = 200</msg>
+<status status="PASS" starttime="20241111 18:36:07.854" endtime="20241111 18:36:07.857"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${response_body}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:36:07.859" level="INFO">${response_body} = {'data': {'id': 12, 'email': 'rachel.howell@reqres.in', 'first_name': 'Rachel', 'last_name': 'Howell', 'avatar': 'https://reqres.in/img/faces/12-image.jpg'}, 'support': {'url': 'https://contentcaddy.i...</msg>
+<status status="PASS" starttime="20241111 18:36:07.857" endtime="20241111 18:36:07.859"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_code}' == '200'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Code Response = ${response_code}${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:07.860" endtime="20241111 18:36:07.862"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_ID}</var>
+<arg>${response_body}</arg>
+<arg>$.data.id</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${response_value_Json}</var>
+<arg>${Json_body}</arg>
+<arg>${Json_path}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20241111 18:36:07.982" level="INFO">${response_value_Json} = [12]</msg>
+<status status="PASS" starttime="20241111 18:36:07.863" endtime="20241111 18:36:07.982"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_value_str}</var>
+<arg>${response_value_Json}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:07.983" level="INFO">${response_value_str} = [12]</msg>
+<status status="PASS" starttime="20241111 18:36:07.982" endtime="20241111 18:36:07.983"/>
+</kw>
+<kw name="Remove String Using Regexp" library="String">
+<var>${response_value}</var>
+<arg>${response_value_str}</arg>
+<arg>\\[|'|]</arg>
+<doc>Removes ``patterns`` from the given ``string``.</doc>
+<msg timestamp="20241111 18:36:07.983" level="INFO">${response_value} = 12</msg>
+<status status="PASS" starttime="20241111 18:36:07.983" endtime="20241111 18:36:07.984"/>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<arg>${response_value}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<msg timestamp="20241111 18:36:07.984" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20241111 18:36:07.984" endtime="20241111 18:36:07.985"/>
+</kw>
+<msg timestamp="20241111 18:36:07.985" level="INFO">${API_ID} = 12</msg>
+<status status="PASS" starttime="20241111 18:36:07.862" endtime="20241111 18:36:07.985"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Email}</var>
+<arg>${response_body}</arg>
+<arg>$.data.email</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${response_value_Json}</var>
+<arg>${Json_body}</arg>
+<arg>${Json_path}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20241111 18:36:08.023" level="INFO">${response_value_Json} = ['rachel.howell@reqres.in']</msg>
+<status status="PASS" starttime="20241111 18:36:07.986" endtime="20241111 18:36:08.023"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_value_str}</var>
+<arg>${response_value_Json}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:08.024" level="INFO">${response_value_str} = ['rachel.howell@reqres.in']</msg>
+<status status="PASS" starttime="20241111 18:36:08.024" endtime="20241111 18:36:08.024"/>
+</kw>
+<kw name="Remove String Using Regexp" library="String">
+<var>${response_value}</var>
+<arg>${response_value_str}</arg>
+<arg>\\[|'|]</arg>
+<doc>Removes ``patterns`` from the given ``string``.</doc>
+<msg timestamp="20241111 18:36:08.025" level="INFO">${response_value} = rachel.howell@reqres.in</msg>
+<status status="PASS" starttime="20241111 18:36:08.024" endtime="20241111 18:36:08.025"/>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<arg>${response_value}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<msg timestamp="20241111 18:36:08.025" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20241111 18:36:08.025" endtime="20241111 18:36:08.026"/>
+</kw>
+<msg timestamp="20241111 18:36:08.026" level="INFO">${API_Email} = rachel.howell@reqres.in</msg>
+<status status="PASS" starttime="20241111 18:36:07.985" endtime="20241111 18:36:08.026"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Fname}</var>
+<arg>${response_body}</arg>
+<arg>$.data.first_name</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${response_value_Json}</var>
+<arg>${Json_body}</arg>
+<arg>${Json_path}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20241111 18:36:08.059" level="INFO">${response_value_Json} = ['Rachel']</msg>
+<status status="PASS" starttime="20241111 18:36:08.027" endtime="20241111 18:36:08.059"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_value_str}</var>
+<arg>${response_value_Json}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:08.060" level="INFO">${response_value_str} = ['Rachel']</msg>
+<status status="PASS" starttime="20241111 18:36:08.060" endtime="20241111 18:36:08.060"/>
+</kw>
+<kw name="Remove String Using Regexp" library="String">
+<var>${response_value}</var>
+<arg>${response_value_str}</arg>
+<arg>\\[|'|]</arg>
+<doc>Removes ``patterns`` from the given ``string``.</doc>
+<msg timestamp="20241111 18:36:08.061" level="INFO">${response_value} = Rachel</msg>
+<status status="PASS" starttime="20241111 18:36:08.060" endtime="20241111 18:36:08.061"/>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<arg>${response_value}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<msg timestamp="20241111 18:36:08.061" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20241111 18:36:08.061" endtime="20241111 18:36:08.061"/>
+</kw>
+<msg timestamp="20241111 18:36:08.062" level="INFO">${API_Fname} = Rachel</msg>
+<status status="PASS" starttime="20241111 18:36:08.026" endtime="20241111 18:36:08.062"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Lname}</var>
+<arg>${response_body}</arg>
+<arg>$.data.last_name</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${response_value_Json}</var>
+<arg>${Json_body}</arg>
+<arg>${Json_path}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20241111 18:36:08.096" level="INFO">${response_value_Json} = ['Howell']</msg>
+<status status="PASS" starttime="20241111 18:36:08.062" endtime="20241111 18:36:08.096"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_value_str}</var>
+<arg>${response_value_Json}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:08.096" level="INFO">${response_value_str} = ['Howell']</msg>
+<status status="PASS" starttime="20241111 18:36:08.096" endtime="20241111 18:36:08.097"/>
+</kw>
+<kw name="Remove String Using Regexp" library="String">
+<var>${response_value}</var>
+<arg>${response_value_str}</arg>
+<arg>\\[|'|]</arg>
+<doc>Removes ``patterns`` from the given ``string``.</doc>
+<msg timestamp="20241111 18:36:08.097" level="INFO">${response_value} = Howell</msg>
+<status status="PASS" starttime="20241111 18:36:08.097" endtime="20241111 18:36:08.097"/>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<arg>${response_value}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<msg timestamp="20241111 18:36:08.098" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20241111 18:36:08.098" endtime="20241111 18:36:08.099"/>
+</kw>
+<msg timestamp="20241111 18:36:08.099" level="INFO">${API_Lname} = Howell</msg>
+<status status="PASS" starttime="20241111 18:36:08.062" endtime="20241111 18:36:08.099"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Avatar}</var>
+<arg>${response_body}</arg>
+<arg>$.data.avatar</arg>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>${response_value_Json}</var>
+<arg>${Json_body}</arg>
+<arg>${Json_path}</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20241111 18:36:08.134" level="INFO">${response_value_Json} = ['https://reqres.in/img/faces/12-image.jpg']</msg>
+<status status="PASS" starttime="20241111 18:36:08.100" endtime="20241111 18:36:08.134"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_value_str}</var>
+<arg>${response_value_Json}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:08.134" level="INFO">${response_value_str} = ['https://reqres.in/img/faces/12-image.jpg']</msg>
+<status status="PASS" starttime="20241111 18:36:08.134" endtime="20241111 18:36:08.135"/>
+</kw>
+<kw name="Remove String Using Regexp" library="String">
+<var>${response_value}</var>
+<arg>${response_value_str}</arg>
+<arg>\\[|'|]</arg>
+<doc>Removes ``patterns`` from the given ``string``.</doc>
+<msg timestamp="20241111 18:36:08.135" level="INFO">${response_value} = https://reqres.in/img/faces/12-image.jpg</msg>
+<status status="PASS" starttime="20241111 18:36:08.135" endtime="20241111 18:36:08.135"/>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<arg>${response_value}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<msg timestamp="20241111 18:36:08.135" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20241111 18:36:08.135" endtime="20241111 18:36:08.136"/>
+</kw>
+<msg timestamp="20241111 18:36:08.136" level="INFO">${API_Avatar} = https://reqres.in/img/faces/12-image.jpg</msg>
+<status status="PASS" starttime="20241111 18:36:08.099" endtime="20241111 18:36:08.136"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_ID}</arg>
+<arg>${G_expected_ID}</arg>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${Compare_Result}</var>
+<arg>Should Be Equal</arg>
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20241111 18:36:08.137" endtime="20241111 18:36:08.138"/>
+</kw>
+<msg timestamp="20241111 18:36:08.138" level="INFO">${Compare_Result} = True</msg>
+<status status="PASS" starttime="20241111 18:36:08.137" endtime="20241111 18:36:08.138"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Compare_Result}' == 'True'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>PASS : Response from API and expected result are the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:08.138" endtime="20241111 18:36:08.140"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:08.138" endtime="20241111 18:36:08.140"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>FAIL : Response from API and expected result are not the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.141" endtime="20241111 18:36:08.141"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<arg>Fail</arg>
+<arg>FAIL : Response from API and expected result are not the same.</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.141" endtime="20241111 18:36:08.141"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.140" endtime="20241111 18:36:08.141"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:08.138" endtime="20241111 18:36:08.141"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:08.136" endtime="20241111 18:36:08.141"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Email}</arg>
+<arg>${G_expected_email}</arg>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${Compare_Result}</var>
+<arg>Should Be Equal</arg>
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20241111 18:36:08.142" endtime="20241111 18:36:08.143"/>
+</kw>
+<msg timestamp="20241111 18:36:08.143" level="INFO">${Compare_Result} = True</msg>
+<status status="PASS" starttime="20241111 18:36:08.142" endtime="20241111 18:36:08.143"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Compare_Result}' == 'True'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>PASS : Response from API and expected result are the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:08.144" endtime="20241111 18:36:08.145"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:08.144" endtime="20241111 18:36:08.145"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>FAIL : Response from API and expected result are not the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.145" endtime="20241111 18:36:08.145"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<arg>Fail</arg>
+<arg>FAIL : Response from API and expected result are not the same.</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.146" endtime="20241111 18:36:08.146"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.145" endtime="20241111 18:36:08.146"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:08.144" endtime="20241111 18:36:08.146"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:08.141" endtime="20241111 18:36:08.146"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Fname}</arg>
+<arg>${G_expected_Fname}</arg>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${Compare_Result}</var>
+<arg>Should Be Equal</arg>
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20241111 18:36:08.147" endtime="20241111 18:36:08.148"/>
+</kw>
+<msg timestamp="20241111 18:36:08.148" level="INFO">${Compare_Result} = True</msg>
+<status status="PASS" starttime="20241111 18:36:08.147" endtime="20241111 18:36:08.148"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Compare_Result}' == 'True'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>PASS : Response from API and expected result are the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:08.148" endtime="20241111 18:36:08.150"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:08.148" endtime="20241111 18:36:08.150"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>FAIL : Response from API and expected result are not the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.151" endtime="20241111 18:36:08.151"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<arg>Fail</arg>
+<arg>FAIL : Response from API and expected result are not the same.</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.151" endtime="20241111 18:36:08.151"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.151" endtime="20241111 18:36:08.151"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:08.148" endtime="20241111 18:36:08.151"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:08.146" endtime="20241111 18:36:08.151"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Lname}</arg>
+<arg>${G_expected_Lname}</arg>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${Compare_Result}</var>
+<arg>Should Be Equal</arg>
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20241111 18:36:08.155" endtime="20241111 18:36:08.155"/>
+</kw>
+<msg timestamp="20241111 18:36:08.155" level="INFO">${Compare_Result} = True</msg>
+<status status="PASS" starttime="20241111 18:36:08.153" endtime="20241111 18:36:08.156"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Compare_Result}' == 'True'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>PASS : Response from API and expected result are the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:08.157" endtime="20241111 18:36:08.159"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:08.156" endtime="20241111 18:36:08.159"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>FAIL : Response from API and expected result are not the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.160" endtime="20241111 18:36:08.160"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<arg>Fail</arg>
+<arg>FAIL : Response from API and expected result are not the same.</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.160" endtime="20241111 18:36:08.161"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.159" endtime="20241111 18:36:08.161"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:08.156" endtime="20241111 18:36:08.161"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:08.152" endtime="20241111 18:36:08.161"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Avatar}</arg>
+<arg>${G_expected_Avatar}</arg>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${Compare_Result}</var>
+<arg>Should Be Equal</arg>
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${API_response_value}</arg>
+<arg>${Expected_value}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20241111 18:36:08.162" endtime="20241111 18:36:08.163"/>
+</kw>
+<msg timestamp="20241111 18:36:08.163" level="INFO">${Compare_Result} = True</msg>
+<status status="PASS" starttime="20241111 18:36:08.162" endtime="20241111 18:36:08.163"/>
+</kw>
+<if>
+<branch type="IF" condition="'${Compare_Result}' == 'True'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>PASS : Response from API and expected result are the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:08.163" endtime="20241111 18:36:08.165"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:08.163" endtime="20241111 18:36:08.165"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>FAIL : Response from API and expected result are not the same. ${\n} API Response : ${API_response_value} = Expected Result : ${Expected_value} ${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.166" endtime="20241111 18:36:08.166"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" library="BuiltIn">
+<arg>Fail</arg>
+<arg>FAIL : Response from API and expected result are not the same.</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.166" endtime="20241111 18:36:08.166"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.165" endtime="20241111 18:36:08.166"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:08.163" endtime="20241111 18:36:08.166"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:08.161" endtime="20241111 18:36:08.167"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:07.859" endtime="20241111 18:36:08.167"/>
+</branch>
+<branch type="ELSE IF" condition="'${response_code}' == '404'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Code Response = ${response_code}${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.167" endtime="20241111 18:36:08.167"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_body_txt}</var>
+<arg>${response_body}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.167" endtime="20241111 18:36:08.167"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${verify_response}</var>
+<arg>Should Match Regexp</arg>
+<arg>${response_body_txt}</arg>
+<arg>\{\}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.167" endtime="20241111 18:36:08.167"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.167" endtime="20241111 18:36:08.167"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:07.859" endtime="20241111 18:36:08.167"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:06.987" endtime="20241111 18:36:08.167"/>
+</kw>
+<doc>To verify get user profile api will return correct data when trying to get profile of existing user</doc>
+<tag>ALLTC</tag>
+<tag>TC1</tag>
+<status status="PASS" starttime="20241111 18:36:06.984" endtime="20241111 18:36:08.168"/>
+</test>
+<test id="s1-t2" name="TC2:Get user profile but user not found" line="84">
+<kw name="Send Get Request To API and Verify Response">
+<arg>1234</arg>
+<arg>404</arg>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${G_url}${userName}</arg>
+<arg>verify=${False}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20241111 18:36:08.824" level="INFO">GET Request : url=https://reqres.in/api/users/1234 
+ path_url=/api/users/1234 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241111 18:36:08.825" level="INFO">GET Response : url=https://reqres.in/api/users/1234 
+ status=404, reason=Not Found 
+ headers={'Date': 'Mon, 11 Nov 2024 11:36:08 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '2', 'Connection': 'keep-alive', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1731324968&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=dub82ec0xvdTI%2FAybV5YCQNBDxtl8pjXLoe8%2BzQN%2F%2Fk%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1731324968&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;s=dub82ec0xvdTI%2FAybV5YCQNBDxtl8pjXLoe8%2BzQN%2F%2Fk%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'EXPIRED', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '8e0dfb9c0b32d037-BKK', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=9766&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2981&amp;recv_bytes=447&amp;delivery_rate=513891&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=caf1ac590ecf2a16&amp;ts=520&amp;x=0"'} 
+ body={} 
+ </msg>
+<msg timestamp="20241111 18:36:08.825" level="INFO">C:\Users\usani\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20241111 18:36:08.827" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20241111 18:36:08.173" endtime="20241111 18:36:08.827"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:08.828" level="INFO">${response_code} = 404</msg>
+<status status="PASS" starttime="20241111 18:36:08.827" endtime="20241111 18:36:08.828"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${response_body}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:36:08.830" level="INFO">${response_body} = {}</msg>
+<status status="PASS" starttime="20241111 18:36:08.829" endtime="20241111 18:36:08.830"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_code}' == '200'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Code Response = ${response_code}${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:36:08.830" endtime="20241111 18:36:08.830"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_ID}</var>
+<arg>${response_body}</arg>
+<arg>$.data.id</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.830" endtime="20241111 18:36:08.830"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Email}</var>
+<arg>${response_body}</arg>
+<arg>$.data.email</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.830" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Fname}</var>
+<arg>${response_body}</arg>
+<arg>$.data.first_name</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Lname}</var>
+<arg>${response_body}</arg>
+<arg>$.data.last_name</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Get Value from Json Response Body">
+<var>${API_Avatar}</var>
+<arg>${response_body}</arg>
+<arg>$.data.avatar</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_ID}</arg>
+<arg>${G_expected_ID}</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Email}</arg>
+<arg>${G_expected_email}</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Fname}</arg>
+<arg>${G_expected_Fname}</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Lname}</arg>
+<arg>${G_expected_Lname}</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.831"/>
+</kw>
+<kw name="Verify API Response VS Expected Result">
+<arg>${API_Avatar}</arg>
+<arg>${G_expected_Avatar}</arg>
+<status status="NOT RUN" starttime="20241111 18:36:08.831" endtime="20241111 18:36:08.832"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:36:08.830" endtime="20241111 18:36:08.832"/>
+</branch>
+<branch type="ELSE IF" condition="'${response_code}' == '404'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Code Response = ${response_code}${\n}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:36:08.832" endtime="20241111 18:36:08.834"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${response_body_txt}</var>
+<arg>${response_body}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20241111 18:36:08.835" level="INFO">${response_body_txt} = {}</msg>
+<status status="PASS" starttime="20241111 18:36:08.835" endtime="20241111 18:36:08.835"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${verify_response}</var>
+<arg>Should Match Regexp</arg>
+<arg>${response_body_txt}</arg>
+<arg>\{\}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${response_body_txt}</arg>
+<arg>\{\}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" starttime="20241111 18:36:08.836" endtime="20241111 18:36:08.837"/>
+</kw>
+<msg timestamp="20241111 18:36:08.837" level="INFO">${verify_response} = True</msg>
+<status status="PASS" starttime="20241111 18:36:08.836" endtime="20241111 18:36:08.837"/>
+</kw>
+<status status="PASS" starttime="20241111 18:36:08.832" endtime="20241111 18:36:08.837"/>
+</branch>
+<status status="PASS" starttime="20241111 18:36:08.830" endtime="20241111 18:36:08.837"/>
+</if>
+<status status="PASS" starttime="20241111 18:36:08.172" endtime="20241111 18:36:08.837"/>
+</kw>
+<tag>ALLTC</tag>
+<tag>TC2</tag>
+<status status="PASS" starttime="20241111 18:36:08.171" endtime="20241111 18:36:08.838"/>
+</test>
+<status status="PASS" starttime="20241111 18:36:05.464" endtime="20241111 18:36:08.841"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="0" skip="0">ALLTC</stat>
+<stat pass="1" fail="0" skip="0">TC1</stat>
+<stat pass="1" fail="0" skip="0">TC2</stat>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="3-TTB APITest">3-TTB APITest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

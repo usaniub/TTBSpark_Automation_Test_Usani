@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.7 on win32)" generated="20241111 18:17:57.210" rpa="false" schemaversion="3">
+<suite id="s1" name="2-TTB WebTest" source="C:\Users\usani\Documents\ForFindingNewJob\TTB\2-TTB_WebTest.robot">
+<test id="s1-t1" name="1:Login success" line="78">
+<kw name="Set Variable" library="BuiltIn">
+<var>${usn_txt}</var>
+<arg>tomsmith</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:17:58.163" level="INFO">${usn_txt} = tomsmith</msg>
+<status status="PASS" starttime="20241111 18:17:58.163" endtime="20241111 18:17:58.163"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${pwd_txt}</var>
+<arg>SuperSecretPassword!</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:17:58.164" level="INFO">${pwd_txt} = SuperSecretPassword!</msg>
+<status status="PASS" starttime="20241111 18:17:58.164" endtime="20241111 18:17:58.164"/>
+</kw>
+<kw name="Open Website And Login">
+<arg>${usn_txt}</arg>
+<arg>${pwd_txt}</arg>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${G_weburl}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20241111 18:17:58.167" level="INFO">Opening browser 'chrome' to base url 'http://the-internet.herokuapp.com/login'.</msg>
+<status status="PASS" starttime="20241111 18:17:58.166" endtime="20241111 18:18:19.433"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20241111 18:18:19.434" endtime="20241111 18:18:19.769"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_usn_input}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:18:19.770" endtime="20241111 18:18:20.095"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${G_usn_input}</arg>
+<arg>${usn_txt}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20241111 18:18:20.099" level="INFO">Typing text 'tomsmith' into text field '//*[@name='username']'.</msg>
+<status status="PASS" starttime="20241111 18:18:20.096" endtime="20241111 18:18:20.965"/>
+</kw>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${G_pwd_input}</arg>
+<arg>${pwd_txt}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20241111 18:18:20.970" level="INFO">Typing password into text field '//*[@name='password']'.</msg>
+<msg timestamp="20241111 18:18:21.228" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20241111 18:18:21.525" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20241111 18:18:20.966" endtime="20241111 18:18:21.526"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${G_submit_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:18:21.529" level="INFO">Clicking element '//*[@type='submit']'.</msg>
+<status status="PASS" starttime="20241111 18:18:21.527" endtime="20241111 18:18:25.198"/>
+</kw>
+<status status="PASS" starttime="20241111 18:17:58.165" endtime="20241111 18:18:25.199"/>
+</kw>
+<kw name="Verify Login Page">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_flash_msg_lct}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:18:25.204" endtime="20241111 18:18:25.302"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${login_flash_msg_txt}</var>
+<arg>${G_flash_msg_lct}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:18:25.383" level="INFO">${login_flash_msg_txt} = You logged into a secure area!
+×</msg>
+<status status="PASS" starttime="20241111 18:18:25.303" endtime="20241111 18:18:25.383"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_loginSuccess}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_login_success_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_login_success_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" starttime="20241111 18:18:25.386" endtime="20241111 18:18:25.390"/>
+</kw>
+<msg timestamp="20241111 18:18:25.390" level="INFO">${chk_loginSuccess} = True</msg>
+<status status="PASS" starttime="20241111 18:18:25.384" endtime="20241111 18:18:25.391"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_wrongPwd}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_wrongPwd_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_wrongPwd_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<msg timestamp="20241111 18:18:25.400" level="FAIL">'You logged into a secure area!
+×' does not match 'Your password is invalid!'</msg>
+<status status="FAIL" starttime="20241111 18:18:25.393" endtime="20241111 18:18:25.401"/>
+</kw>
+<msg timestamp="20241111 18:18:25.402" level="INFO">${chk_wrongPwd} = False</msg>
+<status status="PASS" starttime="20241111 18:18:25.392" endtime="20241111 18:18:25.402"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_wrongUsn}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_usnNotfoud_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_usnNotfoud_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<msg timestamp="20241111 18:18:25.406" level="FAIL">'You logged into a secure area!
+×' does not match 'Your username is invalid!'</msg>
+<status status="FAIL" starttime="20241111 18:18:25.404" endtime="20241111 18:18:25.407"/>
+</kw>
+<msg timestamp="20241111 18:18:25.407" level="INFO">${chk_wrongUsn} = False</msg>
+<status status="PASS" starttime="20241111 18:18:25.403" endtime="20241111 18:18:25.407"/>
+</kw>
+<if>
+<branch type="IF" condition="'${chk_loginSuccess}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>PASS</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:18:25.409" level="INFO">${G_test_result} = PASS</msg>
+<status status="PASS" starttime="20241111 18:18:25.408" endtime="20241111 18:18:25.409"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Success. ${login_flash_msg_txt}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:18:25.409" endtime="20241111 18:18:25.412"/>
+</kw>
+<status status="PASS" starttime="20241111 18:18:25.408" endtime="20241111 18:18:25.412"/>
+</branch>
+<branch type="ELSE IF" condition="'${chk_wrongPwd}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>FAIL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:25.413" endtime="20241111 18:18:25.414"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Failed! : Password incorrect.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:25.415" endtime="20241111 18:18:25.415"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Login Failed! : Password incorrect.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:25.416" endtime="20241111 18:18:25.416"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:18:25.413" endtime="20241111 18:18:25.416"/>
+</branch>
+<branch type="ELSE IF" condition="'${chk_wrongUsn}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>FAIL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:25.416" endtime="20241111 18:18:25.416"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Failed! : User Name is invalid.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:25.417" endtime="20241111 18:18:25.418"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Login Failed! : User Name is invalid.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:25.420" endtime="20241111 18:18:25.420"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:18:25.416" endtime="20241111 18:18:25.421"/>
+</branch>
+<status status="PASS" starttime="20241111 18:18:25.407" endtime="20241111 18:18:25.421"/>
+</if>
+<status status="PASS" starttime="20241111 18:18:25.202" endtime="20241111 18:18:25.421"/>
+</kw>
+<kw name="Logout and Verify Logout">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${G_logout_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:18:25.428" level="INFO">Clicking element '//*[@href='/logout']'.</msg>
+<status status="PASS" starttime="20241111 18:18:25.425" endtime="20241111 18:18:26.793"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_flash_msg_lct}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:18:26.794" endtime="20241111 18:18:26.881"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${logout_flash_msg_txt}</var>
+<arg>${G_flash_msg_lct}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:18:26.971" level="INFO">${logout_flash_msg_txt} = You logged out of the secure area!
+×</msg>
+<status status="PASS" starttime="20241111 18:18:26.882" endtime="20241111 18:18:26.971"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_logoutSuccess}</var>
+<arg>Should Match Regexp</arg>
+<arg>${logout_flash_msg_txt}</arg>
+<arg>${G_logout_success_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${logout_flash_msg_txt}</arg>
+<arg>${G_logout_success_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" starttime="20241111 18:18:26.973" endtime="20241111 18:18:26.974"/>
+</kw>
+<msg timestamp="20241111 18:18:26.975" level="INFO">${chk_logoutSuccess} = True</msg>
+<status status="PASS" starttime="20241111 18:18:26.972" endtime="20241111 18:18:26.975"/>
+</kw>
+<if>
+<branch type="IF" condition="'${chk_logoutSuccess}' == 'True'">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Logout success. : ${logout_flash_msg_txt}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:18:26.976" endtime="20241111 18:18:26.979"/>
+</kw>
+<status status="PASS" starttime="20241111 18:18:26.976" endtime="20241111 18:18:26.979"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" library="BuiltIn">
+<arg>Logout Failed!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:26.981" endtime="20241111 18:18:26.981"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Logout Failed!</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20241111 18:18:26.982" endtime="20241111 18:18:26.983"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:18:26.980" endtime="20241111 18:18:26.983"/>
+</branch>
+<status status="PASS" starttime="20241111 18:18:26.975" endtime="20241111 18:18:26.983"/>
+</if>
+<status status="PASS" starttime="20241111 18:18:25.423" endtime="20241111 18:18:26.984"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20241111 18:18:26.987" endtime="20241111 18:18:35.679"/>
+</kw>
+<doc>To verify that users can login successfully when input a correct username and password.</doc>
+<tag>1_loginSuccess</tag>
+<tag>run_allTC</tag>
+<status status="PASS" starttime="20241111 18:17:58.161" endtime="20241111 18:18:35.681"/>
+</test>
+<test id="s1-t2" name="2: Login failed - Password incorrect" line="88">
+<kw name="Set Variable" library="BuiltIn">
+<var>${usn_txt}</var>
+<arg>tomsmith</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:18:35.690" level="INFO">${usn_txt} = tomsmith</msg>
+<status status="PASS" starttime="20241111 18:18:35.689" endtime="20241111 18:18:35.691"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${pwd_txt}</var>
+<arg>Password!</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:18:35.695" level="INFO">${pwd_txt} = Password!</msg>
+<status status="PASS" starttime="20241111 18:18:35.692" endtime="20241111 18:18:35.695"/>
+</kw>
+<kw name="Open Website And Login">
+<arg>${usn_txt}</arg>
+<arg>${pwd_txt}</arg>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${G_weburl}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20241111 18:18:35.701" level="INFO">Opening browser 'chrome' to base url 'http://the-internet.herokuapp.com/login'.</msg>
+<status status="PASS" starttime="20241111 18:18:35.700" endtime="20241111 18:19:15.561"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20241111 18:19:15.562" endtime="20241111 18:19:15.892"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_usn_input}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:19:15.894" endtime="20241111 18:19:16.030"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${G_usn_input}</arg>
+<arg>${usn_txt}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:16.033" level="INFO">Typing text 'tomsmith' into text field '//*[@name='username']'.</msg>
+<status status="PASS" starttime="20241111 18:19:16.031" endtime="20241111 18:19:16.476"/>
+</kw>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${G_pwd_input}</arg>
+<arg>${pwd_txt}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:16.478" level="INFO">Typing password into text field '//*[@name='password']'.</msg>
+<msg timestamp="20241111 18:19:16.647" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20241111 18:19:16.873" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20241111 18:19:16.477" endtime="20241111 18:19:16.873"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${G_submit_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:16.875" level="INFO">Clicking element '//*[@type='submit']'.</msg>
+<status status="PASS" starttime="20241111 18:19:16.874" endtime="20241111 18:19:18.628"/>
+</kw>
+<status status="PASS" starttime="20241111 18:18:35.697" endtime="20241111 18:19:18.629"/>
+</kw>
+<kw name="Verify Login Page">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_flash_msg_lct}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:19:18.660" endtime="20241111 18:19:18.770"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${login_flash_msg_txt}</var>
+<arg>${G_flash_msg_lct}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:18.854" level="INFO">${login_flash_msg_txt} = Your password is invalid!
+×</msg>
+<status status="PASS" starttime="20241111 18:19:18.770" endtime="20241111 18:19:18.854"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_loginSuccess}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_login_success_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_login_success_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<msg timestamp="20241111 18:19:18.860" level="FAIL">'Your password is invalid!
+×' does not match 'You logged into a secure area!'</msg>
+<status status="FAIL" starttime="20241111 18:19:18.857" endtime="20241111 18:19:18.860"/>
+</kw>
+<msg timestamp="20241111 18:19:18.861" level="INFO">${chk_loginSuccess} = False</msg>
+<status status="PASS" starttime="20241111 18:19:18.855" endtime="20241111 18:19:18.861"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_wrongPwd}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_wrongPwd_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_wrongPwd_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" starttime="20241111 18:19:18.862" endtime="20241111 18:19:18.863"/>
+</kw>
+<msg timestamp="20241111 18:19:18.863" level="INFO">${chk_wrongPwd} = True</msg>
+<status status="PASS" starttime="20241111 18:19:18.861" endtime="20241111 18:19:18.864"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_wrongUsn}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_usnNotfoud_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_usnNotfoud_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<msg timestamp="20241111 18:19:18.866" level="FAIL">'Your password is invalid!
+×' does not match 'Your username is invalid!'</msg>
+<status status="FAIL" starttime="20241111 18:19:18.865" endtime="20241111 18:19:18.867"/>
+</kw>
+<msg timestamp="20241111 18:19:18.867" level="INFO">${chk_wrongUsn} = False</msg>
+<status status="PASS" starttime="20241111 18:19:18.864" endtime="20241111 18:19:18.867"/>
+</kw>
+<if>
+<branch type="IF" condition="'${chk_loginSuccess}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>PASS</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:18.868" endtime="20241111 18:19:18.868"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Success. ${login_flash_msg_txt}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:18.868" endtime="20241111 18:19:18.869"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:19:18.868" endtime="20241111 18:19:18.869"/>
+</branch>
+<branch type="ELSE IF" condition="'${chk_wrongPwd}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>FAIL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:19:18.870" level="INFO">${G_test_result} = FAIL</msg>
+<status status="PASS" starttime="20241111 18:19:18.869" endtime="20241111 18:19:18.870"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Failed! : Password incorrect.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:19:18.870" endtime="20241111 18:19:18.872"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Login Failed! : Password incorrect.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<msg timestamp="20241111 18:19:18.875" level="FAIL">Login Failed! : Password incorrect.</msg>
+<status status="FAIL" starttime="20241111 18:19:18.874" endtime="20241111 18:19:18.876"/>
+</kw>
+<status status="FAIL" starttime="20241111 18:19:18.869" endtime="20241111 18:19:18.876"/>
+</branch>
+<branch type="ELSE IF" condition="'${chk_wrongUsn}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>FAIL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:18.877" endtime="20241111 18:19:18.877"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Failed! : User Name is invalid.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:18.877" endtime="20241111 18:19:18.877"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Login Failed! : User Name is invalid.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:18.878" endtime="20241111 18:19:18.878"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:19:18.876" endtime="20241111 18:19:18.878"/>
+</branch>
+<status status="FAIL" starttime="20241111 18:19:18.867" endtime="20241111 18:19:18.878"/>
+</if>
+<status status="FAIL" starttime="20241111 18:19:18.644" endtime="20241111 18:19:18.880"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20241111 18:19:18.886" endtime="20241111 18:19:27.745"/>
+</kw>
+<doc>To verify that users can login unsuccessfully when they input a correct username but wrong password.</doc>
+<tag>2_loginFailed_pwd</tag>
+<tag>run_allTC</tag>
+<status status="FAIL" starttime="20241111 18:18:35.686" endtime="20241111 18:19:27.747">Login Failed! : Password incorrect.</status>
+</test>
+<test id="s1-t3" name="3: Login failed - Username not found" line="96">
+<kw name="Set Variable" library="BuiltIn">
+<var>${usn_txt}</var>
+<arg>tomholland</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:19:27.756" level="INFO">${usn_txt} = tomholland</msg>
+<status status="PASS" starttime="20241111 18:19:27.755" endtime="20241111 18:19:27.756"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${pwd_txt}</var>
+<arg>Password!</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:19:27.760" level="INFO">${pwd_txt} = Password!</msg>
+<status status="PASS" starttime="20241111 18:19:27.758" endtime="20241111 18:19:27.760"/>
+</kw>
+<kw name="Open Website And Login">
+<arg>${usn_txt}</arg>
+<arg>${pwd_txt}</arg>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${G_weburl}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20241111 18:19:27.764" level="INFO">Opening browser 'chrome' to base url 'http://the-internet.herokuapp.com/login'.</msg>
+<status status="PASS" starttime="20241111 18:19:27.763" endtime="20241111 18:19:49.943"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20241111 18:19:49.944" endtime="20241111 18:19:50.382"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_usn_input}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:19:50.382" endtime="20241111 18:19:50.727"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${G_usn_input}</arg>
+<arg>${usn_txt}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:50.729" level="INFO">Typing text 'tomholland' into text field '//*[@name='username']'.</msg>
+<status status="PASS" starttime="20241111 18:19:50.727" endtime="20241111 18:19:51.353"/>
+</kw>
+<kw name="Input Password" library="SeleniumLibrary">
+<arg>${G_pwd_input}</arg>
+<arg>${pwd_txt}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:51.354" level="INFO">Typing password into text field '//*[@name='password']'.</msg>
+<msg timestamp="20241111 18:19:51.505" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20241111 18:19:51.727" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20241111 18:19:51.353" endtime="20241111 18:19:51.727"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${G_submit_btn}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:51.729" level="INFO">Clicking element '//*[@type='submit']'.</msg>
+<status status="PASS" starttime="20241111 18:19:51.728" endtime="20241111 18:19:53.472"/>
+</kw>
+<status status="PASS" starttime="20241111 18:19:27.761" endtime="20241111 18:19:53.473"/>
+</kw>
+<kw name="Verify Login Page">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${G_flash_msg_lct}</arg>
+<arg>timeout=${G_web_timout}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20241111 18:19:53.491" endtime="20241111 18:19:53.602"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${login_flash_msg_txt}</var>
+<arg>${G_flash_msg_lct}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20241111 18:19:53.690" level="INFO">${login_flash_msg_txt} = Your username is invalid!
+×</msg>
+<status status="PASS" starttime="20241111 18:19:53.602" endtime="20241111 18:19:53.690"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_loginSuccess}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_login_success_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_login_success_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<msg timestamp="20241111 18:19:53.693" level="FAIL">'Your username is invalid!
+×' does not match 'You logged into a secure area!'</msg>
+<status status="FAIL" starttime="20241111 18:19:53.692" endtime="20241111 18:19:53.694"/>
+</kw>
+<msg timestamp="20241111 18:19:53.694" level="INFO">${chk_loginSuccess} = False</msg>
+<status status="PASS" starttime="20241111 18:19:53.691" endtime="20241111 18:19:53.694"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_wrongPwd}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_wrongPwd_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_wrongPwd_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<msg timestamp="20241111 18:19:53.697" level="FAIL">'Your username is invalid!
+×' does not match 'Your password is invalid!'</msg>
+<status status="FAIL" starttime="20241111 18:19:53.695" endtime="20241111 18:19:53.697"/>
+</kw>
+<msg timestamp="20241111 18:19:53.697" level="INFO">${chk_wrongPwd} = False</msg>
+<status status="PASS" starttime="20241111 18:19:53.694" endtime="20241111 18:19:53.697"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${chk_wrongUsn}</var>
+<arg>Should Match Regexp</arg>
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_usnNotfoud_msg}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${login_flash_msg_txt}</arg>
+<arg>${G_usnNotfoud_msg}</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" starttime="20241111 18:19:53.698" endtime="20241111 18:19:53.699"/>
+</kw>
+<msg timestamp="20241111 18:19:53.699" level="INFO">${chk_wrongUsn} = True</msg>
+<status status="PASS" starttime="20241111 18:19:53.698" endtime="20241111 18:19:53.699"/>
+</kw>
+<if>
+<branch type="IF" condition="'${chk_loginSuccess}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>PASS</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:53.700" endtime="20241111 18:19:53.701"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Success. ${login_flash_msg_txt}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:53.701" endtime="20241111 18:19:53.701"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:19:53.699" endtime="20241111 18:19:53.701"/>
+</branch>
+<branch type="ELSE IF" condition="'${chk_wrongPwd}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>FAIL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:53.702" endtime="20241111 18:19:53.702"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Failed! : Password incorrect.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:53.702" endtime="20241111 18:19:53.702"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Login Failed! : Password incorrect.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20241111 18:19:53.702" endtime="20241111 18:19:53.703"/>
+</kw>
+<status status="NOT RUN" starttime="20241111 18:19:53.701" endtime="20241111 18:19:53.703"/>
+</branch>
+<branch type="ELSE IF" condition="'${chk_wrongUsn}' == 'True'">
+<kw name="Set Variable" library="BuiltIn">
+<var>${G_test_result}</var>
+<arg>FAIL</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20241111 18:19:53.704" level="INFO">${G_test_result} = FAIL</msg>
+<status status="PASS" starttime="20241111 18:19:53.703" endtime="20241111 18:19:53.704"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Login Failed! : User Name is invalid.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20241111 18:19:53.704" endtime="20241111 18:19:53.706"/>
+</kw>
+<kw name="Fail" library="BuiltIn">
+<arg>Login Failed! : User Name is invalid.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<msg timestamp="20241111 18:19:53.707" level="FAIL">Login Failed! : User Name is invalid.</msg>
+<status status="FAIL" starttime="20241111 18:19:53.706" endtime="20241111 18:19:53.707"/>
+</kw>
+<status status="FAIL" starttime="20241111 18:19:53.703" endtime="20241111 18:19:53.709"/>
+</branch>
+<status status="FAIL" starttime="20241111 18:19:53.699" endtime="20241111 18:19:53.709"/>
+</if>
+<status status="FAIL" starttime="20241111 18:19:53.490" endtime="20241111 18:19:53.712"/>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20241111 18:19:53.714" endtime="20241111 18:20:03.790"/>
+</kw>
+<doc>To verify that users can login unsuccessfully when they input a username that did not exist</doc>
+<tag>3_loginFailed_usn</tag>
+<tag>run_allTC</tag>
+<status status="FAIL" starttime="20241111 18:19:27.752" endtime="20241111 18:20:03.793">Login Failed! : User Name is invalid.</status>
+</test>
+<status status="FAIL" starttime="20241111 18:17:57.233" endtime="20241111 18:20:03.800"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">1_loginSuccess</stat>
+<stat pass="0" fail="1" skip="0">2_loginFailed_pwd</stat>
+<stat pass="0" fail="1" skip="0">3_loginFailed_usn</stat>
+<stat pass="1" fail="2" skip="0">run_allTC</stat>
+</tag>
+<suite>
+<stat pass="1" fail="2" skip="0" id="s1" name="2-TTB WebTest">2-TTB WebTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

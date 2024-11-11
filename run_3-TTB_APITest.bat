@@ -1,0 +1,1 @@
+robot -d Results/3-TTB_APITest -o output.xml -i ALLTC 3-TTB_APITest.robot
